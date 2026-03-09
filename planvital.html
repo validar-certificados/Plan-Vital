@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Validación de Certificados – AFP PlanVital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── NAV ── */
+    .top-nav { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 0 40px; display: flex; align-items: center; gap: 0; }
+    .top-nav .nav-tab { padding: 14px 28px; font-size: 0.88rem; font-weight: 500; color: #555; cursor: pointer; border-bottom: 3px solid transparent; transition: all .2s; text-decoration: none; display: inline-block; }
+    .top-nav .nav-tab:hover { color: #c0392b; }
+    .top-nav .nav-tab.active { color: #333; border-bottom-color: #c0392b; }
+
+    /* ── LOGO BAR ── */
+    .logo-bar { background: #fff; padding: 10px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+    .logo-bar img { height: 56px; object-fit: contain; }
+    .logo-bar nav { display: flex; gap: 28px; }
+    .logo-bar nav a { font-size: 0.9rem; color: #333; text-decoration: none; font-weight: 500; }
+    .logo-bar nav a:hover { color: #c0392b; }
+    .btn-cuenta { background: #a01010; color: #fff; padding: 10px 22px; border-radius: 4px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin-left: 12px; }
+    .btn-cuenta:hover { background: #800000; }
+
+    /* ── HERO BANNER ── */
+    .hero { background: linear-gradient(135deg, #c0392b 60%, #a01010 100%); padding: 52px 40px; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; right: -60px; top: -40px; width: 420px; height: 320px; background: rgba(255,255,255,.06); border-radius: 50%; }
+    .hero h1 { color: #fff; font-size: 2rem; font-weight: 700; position: relative; z-index: 1; }
+
+    /* ── TABS ── */
+    .section-tabs { background: #fff; border-bottom: 1px solid #ddd; display: flex; }
+    .section-tabs .stab { flex: 1; text-align: center; padding: 16px; font-size: 0.92rem; color: #555; cursor: pointer; border-bottom: 3px solid transparent; transition: all .2s; }
+    .section-tabs .stab.active { color: #c0392b; border-bottom-color: #c0392b; font-weight: 600; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { padding: 16px 40px; font-size: 0.82rem; color: #888; }
+    .breadcrumb a { color: #c0392b; text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; }
+
+    /* ── MAIN CONTENT ── */
+    main { flex: 1; padding: 10px 40px 48px; max-width: 1100px; margin: 0 auto; width: 100%; }
+    main h2 { font-size: 1.5rem; font-weight: 700; color: #c0392b; margin-bottom: 8px; }
+    main .intro-red { color: #c0392b; font-size: 0.95rem; font-weight: 500; margin-bottom: 12px; }
+    main .intro-text { color: #555; font-size: 0.9rem; line-height: 1.6; margin-bottom: 6px; }
+    main .note { color: #555; font-size: 0.9rem; margin-bottom: 28px; }
+
+    /* ── FORM BOX ── */
+    .form-box { background: #fff; border-radius: 6px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,.08); display: flex; gap: 40px; align-items: flex-start; }
+    .form-left { flex: 1; }
+    .form-right { width: 280px; flex-shrink: 0; }
+    .form-box h3 { color: #c0392b; font-size: 1rem; font-weight: 600; margin-bottom: 24px; }
+
+    .field-group { margin-bottom: 22px; }
+    .field-group label { display: block; font-size: 0.88rem; color: #555; margin-bottom: 6px; }
+    .field-group input { width: 100%; padding: 10px 14px; border: none; border-bottom: 1px solid #999; font-size: 0.95rem; color: #333; background: transparent; font-family: 'Roboto', sans-serif; transition: border-color .2s; }
+    .field-group input:focus { outline: none; border-bottom-color: #c0392b; }
+    .field-group input::placeholder { color: #aaa; font-size: 0.88rem; }
+
+    .folio-hint { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 0.78rem; color: #888; }
+    .hint-icon { width: 15px; height: 15px; background: #c0392b; border-radius: 50%; color: #fff; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+
+    .recaptcha-note { font-size: 0.75rem; color: #888; margin-bottom: 20px; line-height: 1.5; }
+    .recaptcha-note a { color: #c0392b; text-decoration: none; }
+
+    .btn-validar { background: #c0392b; color: #fff; border: none; padding: 12px 32px; font-size: 0.95rem; font-weight: 600; border-radius: 4px; cursor: pointer; font-family: 'Roboto', sans-serif; transition: background .2s; }
+    .btn-validar:hover { background: #a01010; }
+    .btn-validar:disabled { background: #e0a0a0; cursor: not-allowed; }
+
+    /* ── CERT IMAGE PREVIEW ── */
+    .cert-preview { background: #f0f0f0; border-radius: 6px; padding: 16px; text-align: center; }
+    .cert-preview .cert-inner { background: #fff; border-radius: 4px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .cert-lines { margin: 12px 0; }
+    .cert-line { height: 6px; background: #ddd; border-radius: 3px; margin: 5px auto; }
+    .cert-line.short { width: 60%; }
+    .cert-line.medium { width: 80%; }
+    .cert-line.long { width: 95%; }
+    .folio-badge { background: #e8e8e8; border: 2px dashed #c0392b; border-radius: 50%; width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; margin: 16px auto 0; font-size: 0.72rem; font-weight: 700; color: #c0392b; text-align: center; padding: 10px; }
+    .pv-logo-preview { color: #c0392b; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; }
+
+    /* ── SPINNER / RESULT ── */
+    .spinner { display: none; text-align: center; padding: 20px 0; }
+    .spinner.active { display: block; }
+    .spinner svg { animation: spin .9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-box { display: none; margin-top: 24px; border-radius: 6px; overflow: hidden; border: 1px solid #ddd; }
+    .result-box.visible { display: block; }
+    .result-header { padding: 12px 18px; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+    .result-header.success { background: #e8f5e9; color: #2e7d32; border-bottom: 2px solid #2e7d32; }
+    .result-header.error { background: #ffebee; color: #c62828; border-bottom: 2px solid #c62828; }
+    .result-body { padding: 18px; background: #fff; }
+    .result-body .name { font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+    .btn-pdf { display: inline-flex; align-items: center; gap: 7px; background: #c0392b; color: #fff; padding: 9px 18px; border-radius: 4px; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none; font-family: 'Roboto', sans-serif; transition: background .2s; }
+    .btn-pdf:hover { background: #a01010; }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 18px; color: #999; font-size: 0.78rem; border-top: 1px solid #e0e0e0; background: #fff; margin-top: auto; }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <a class="nav-tab active" href="#">Afiliados</a>
+  <a class="nav-tab" href="#">Pensionados</a>
+  <a class="nav-tab" href="#">Empleador</a>
+</div>
+
+<!-- LOGO BAR -->
+<div class="logo-bar">
+  <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20PLAN%20VITAL.png" alt="AFP PlanVital" style="filter:none; background:#1a1a1a; padding:6px 12px; border-radius:4px;"/>
+  <nav>
+    <a href="#">Cámbiate a AFP PlanVital</a>
+    <a href="#">Ahorra con AFP PlanVital</a>
+    <a href="#">Asesoría y herramientas</a>
+    <a class="btn-cuenta" href="#">Ingresa a tu cuenta</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Validación de certificados</h1>
+</div>
+
+<!-- SECTION TABS -->
+<div class="section-tabs">
+  <div class="stab">Obtener certificados</div>
+  <div class="stab active">Validar certificados</div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a><span>|</span>
+  <a href="#">Asesoría y herramientas</a><span>|</span>
+  <strong>Certificados en línea</strong>
+</div>
+
+<!-- MAIN -->
+<main>
+  <h2>Validación Online Certificados</h2>
+  <p class="intro-red">En esta sección podrás validar todos los Certificados emitidos por AFP PlanVital.</p>
+  <p class="intro-text">Ingresa el Rut de acuerdo al tipo de cliente a consultar, Afiliado o Empleador y el número de Folio del Certificado.<br>Éste se encuentra ubicado en el extremo superior derecho del documento.</p>
+  <p class="note">Esta aplicación entregará una copia del certificado con la finalidad de ratificar la veracidad del original.</p>
+  <p class="note" style="margin-bottom:28px;">Se podrán validar certificados con hasta 90 días corridos desde su emisión.</p>
+
+  <div class="form-box">
+    <div class="form-left">
+      <h3>Ingresa los datos del certificado de AFP PlanVital que deseas validar:</h3>
+
+      <div class="field-group">
+        <label>Rut Afiliado o Empleador</label>
+        <input type="text" id="rut" placeholder="12.345.678-9" maxlength="12"/>
+      </div>
+
+      <div class="field-group">
+        <label>Folio Certificado <span class="hint-icon">?</span></label>
+        <input type="text" id="folio" placeholder="11112222333344445"/>
+        <div class="folio-hint">
+          <span class="hint-icon">i</span>
+          <span>El Folio se encuentra en la parte superior derecha del certificado</span>
+        </div>
+      </div>
+
+      <p class="recaptcha-note">Este sitio esta protegido por reCAPTCHA y las <a href="#">políticas de privacidad</a> y <a href="#">términos y condiciones</a> de Google aplican.</p>
+
+      <button class="btn-validar" id="btn-validar" onclick="validar()">Validar Certificado</button>
+
+      <div class="spinner" id="spinner">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#e0e0e0" stroke-width="3"/>
+          <path d="M12 2a10 10 0 0 1 10 10" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <p style="margin-top:6px;color:#888;font-size:0.85rem;">Consultando...</p>
+      </div>
+
+      <div class="result-box" id="result-box">
+        <div class="result-header" id="result-header"></div>
+        <div class="result-body" id="result-body"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Certificate preview image -->
+    <div class="form-right">
+      <div class="cert-preview">
+        <div class="cert-inner">
+          <div class="pv-logo-preview">PlanVital</div>
+          <div class="cert-lines">
+            <div class="cert-line long"></div>
+            <div class="cert-line medium"></div>
+            <div class="cert-line long"></div>
+            <div class="cert-line short"></div>
+            <div class="cert-line medium"></div>
+            <div class="cert-line long"></div>
+          </div>
+        </div>
+        <div class="folio-badge">FOLIO N° 6583-3256-4674-3565</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>AFP PlanVital &copy; 2026 — Sistema de Validación de Certificados</footer>
+
+<script>
+  const WEBHOOK = 'https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
+
+  async function validar() {
+    const rut   = document.getElementById('rut').value.trim();
+    const folio = document.getElementById('folio').value.trim();
+    const uuid  = folio;
+    if (!rut || !folio) { alert('Por favor ingresa el RUT y el folio del certificado.'); return; }
+    const btn = document.getElementById('btn-validar');
+    btn.disabled = true;
+    document.getElementById('spinner').classList.add('active');
+    document.getElementById('result-box').classList.remove('visible');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ uuid: uuid, afp: 'PlanVital' }),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      const data = await res.json();
+      document.getElementById('spinner').classList.remove('active');
+      const box = document.getElementById('result-box');
+      const hdr = document.getElementById('result-header');
+      const bdy = document.getElementById('result-body');
+      if (data.found === true && data.pdf) {
+        hdr.className = 'result-header success';
+        hdr.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2e7d32"/><path d="M8 12l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Certificado válido';
+        const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
+        bdy.innerHTML = '<div class="name">' + (data.name || 'Certificado encontrado') + '</div>' +
+          '<div style="margin-top:12px;border:1px solid #ddd;border-radius:4px;overflow:hidden;">' +
+          '<iframe src="' + pdfData + '" style="width:100%;height:500px;border:none;" title="Certificado PDF"></iframe></div>';
+      } else if (data.found === false) {
+        hdr.className = 'result-header error';
+        hdr.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#c62828"/><path d="M15 9l-6 6M9 9l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Certificado no encontrado';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">No se encontró ningún certificado con los datos ingresados.</p>';
+      } else {
+        hdr.className = 'result-header error';
+        hdr.innerHTML = '⚠️ Respuesta inesperada del servidor.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">Intenta nuevamente en unos minutos.</p>';
+      }
+      box.classList.add('visible');
+    } catch(err) {
+      clearTimeout(timeout);
+      document.getElementById('spinner').classList.remove('active');
+      const box = document.getElementById('result-box');
+      const hdr = document.getElementById('result-header');
+      const bdy = document.getElementById('result-body');
+      hdr.className = 'result-header error';
+      if (err.name === 'AbortError') {
+        hdr.innerHTML = '⚠️ Tiempo de espera agotado.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">El servidor tardó demasiado. Intenta nuevamente.</p>';
+      } else {
+        hdr.innerHTML = '⚠️ No se pudo conectar con el servidor.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">Verifica tu conexión e intenta nuevamente.</p>';
+      }
+      box.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('rut').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('folio').focus(); });
+    document.getElementById('folio').addEventListener('keydown', e=>{ if(e.key==='Enter') validar(); });
+  });
+</script>
+</body>
+</html>
