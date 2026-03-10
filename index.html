@@ -13,18 +13,18 @@
     body { font-family: 'Roboto', sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
     /* ── TOP NAV ── */
-    .top-nav { background: #f4f4f4; border-bottom: 1px solid #e0e0e0; padding: 0 40px; display: flex; align-items: center; justify-content: center; height: 46px; }
-    .top-nav-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; height: 100%; }
-    .top-nav-inner .nav-tabs { display: flex; height: 100%; margin-left: 200px; /* Empuja los tabs a la derecha del logo */ }
-    .top-nav .nav-tab { padding: 0 30px; font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; border-top: 3px solid transparent; background: transparent; display: flex; align-items: center; }
-    .top-nav .nav-tab.active { background: #fff; border-top-color: #e5e5e5; font-weight: 600; color: #333; }
-    .top-nav .nav-right { margin-left: auto; display: flex; align-items: center; gap: 20px; font-size: 0.85rem; color: #555; }
+    .top-nav { background: #f4f4f4; border-bottom: 1px solid #e0e0e0; height: 46px; display: flex; justify-content: center; }
+    .top-nav-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; height: 100%; padding-left: 200px; /* Empuja a la derecha del logo */ }
+    .nav-tabs { display: flex; height: 100%; }
+    .nav-tabs .nav-tab { padding: 0 30px; font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; border-top: 3px solid transparent; display: flex; align-items: center; }
+    .nav-tabs .nav-tab.active { background: #fff; border-top-color: #e5e5e5; font-weight: 600; color: #333; }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 24px; font-size: 0.85rem; color: #555; }
 
     /* ── LOGO BAR ── */
     .logo-bar { background: #fff; padding: 0 40px; display: flex; align-items: center; justify-content: center; height: 76px; position: relative; z-index: 10; }
     .logo-bar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; position: relative; height: 100%; }
     
-    /* ── CAJA ROJA DEL LOGO (MÁS GRANDE) ── */
+    /* ── CAJA ROJA DEL LOGO ── */
     .logo-block { 
       background: #cc0000; 
       position: absolute; 
@@ -33,14 +33,21 @@
       padding: 30px 15px; 
       border-radius: 0 0 6px 6px; 
       box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-      height: 160px; /* Más larga hacia abajo */
-      width: 150px; /* Más ancha */
+      height: 180px; 
+      width: 160px; 
       display: flex; 
       align-items: center; 
       justify-content: center;
       z-index: 20;
     }
-    .logo-block img { width: 100%; height: auto; object-fit: contain; }
+    /* Forzamos que la imagen/SVG sea totalmente blanca para que resalte sobre el rojo */
+    .logo-block img { 
+      width: 100%; 
+      height: auto; 
+      max-height: 100px;
+      object-fit: contain; 
+      filter: brightness(0) invert(1); 
+    }
     
     .logo-bar nav { display: flex; gap: 30px; margin-left: auto; align-items: center; }
     .logo-bar nav a { font-size: 0.95rem; color: #cc0000; text-decoration: none; font-weight: 700; }
@@ -55,18 +62,18 @@
     /* ── TABS ── */
     .section-tabs { background: #f9f9f9; border-bottom: 1px solid #ddd; display: flex; justify-content: center; }
     .section-tabs-inner { display: flex; max-width: 1100px; width: 100%; }
-    .section-tabs .stab { flex: 1; text-align: center; padding: 18px; font-size: 0.95rem; color: #555; border-bottom: 3px solid transparent; font-weight: 500; }
-    .section-tabs .stab.active { color: #333; border-bottom-color: #cc0000; font-weight: 600; background: #fff; }
+    .section-tabs .stab { flex: 1; text-align: center; padding: 18px; font-size: 0.95rem; color: #555; border-bottom: 3px solid transparent; font-weight: 500; cursor: pointer; }
+    .section-tabs .stab.active { color: #333; border-bottom-color: #cc0000; font-weight: 600; background: #fff; cursor: default; }
 
     /* ── BREADCRUMB ── */
-    .breadcrumb { padding: 20px 20px 10px; max-width: 1100px; margin: 0 auto; font-size: 0.82rem; color: #888; width: 100%; }
+    .breadcrumb { padding: 30px 20px 10px; max-width: 1100px; margin: 0 auto; font-size: 0.82rem; color: #888; width: 100%; }
     .breadcrumb a { color: #cc0000; text-decoration: none; }
     .breadcrumb span { margin: 0 6px; color: #ccc; }
 
     /* ── MAIN CONTENT ── */
     main { flex: 1; padding: 10px 20px 48px; max-width: 1100px; margin: 0 auto; width: 100%; }
     main h2 { font-size: 1.6rem; font-weight: 700; color: #cc0000; margin-bottom: 12px; }
-    main .intro-red { color: #cc0000; font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+    main .intro-red { color: #cc0000; font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; }
     main .intro-text { color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 12px; }
 
     /* ── FORM BOX ── */
@@ -74,28 +81,28 @@
     .form-left { flex: 1; }
     .form-right { width: 340px; flex-shrink: 0; background: #f0f0f0; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 4px; padding: 20px; }
     
-    .form-box h3 { color: #cc0000; font-size: 1.05rem; font-weight: 600; margin-bottom: 30px; }
+    .form-box h3 { color: #cc0000; font-size: 1.1rem; font-weight: 600; margin-bottom: 30px; }
 
     .field-group { margin-bottom: 24px; }
-    .field-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #333; margin-bottom: 8px; }
-    .field-group input { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; color: #333; font-family: 'Roboto', sans-serif; transition: border-color .2s; outline: none; }
-    .field-group input:focus { border-color: #cc0000; }
+    .field-group label { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: #333; margin-bottom: 8px; }
+    .field-group input { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; color: #333; font-family: 'Roboto', sans-serif; transition: border-color .2s; outline: none; }
+    .field-group input:focus { border-color: #cc0000; box-shadow: 0 0 0 1px #cc0000; }
 
     .recaptcha-note { font-size: 0.75rem; color: #888; margin-bottom: 24px; line-height: 1.5; }
-    .recaptcha-note a { color: #cc0000; text-decoration: none; }
+    .recaptcha-note a { color: #cc0000; text-decoration: underline; }
 
     .btn-validar { background: #e57373; color: #fff; border: none; padding: 14px 0; font-size: 1.05rem; font-weight: 600; border-radius: 30px; cursor: not-allowed; font-family: 'Roboto', sans-serif; transition: background .2s; width: 100%; max-width: 280px; }
     .btn-validar.ready { background: #cc0000; cursor: pointer; }
     .btn-validar.ready:hover { background: #a00000; }
 
-    /* ── CSS DRAWN CERTIFICATE ── */
+    /* ── CSS DRAWN CERTIFICATE (Graphic) ── */
     .mock-cert { background: #fff; width: 180px; height: 240px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; padding: 20px 15px; }
     .mock-logo { color: #cc0000; font-size: 0.6rem; font-weight: 700; margin-bottom: 10px; }
     .mock-line { height: 4px; background: #eee; margin-bottom: 6px; border-radius: 2px; }
     .mock-line.short { width: 50%; }
-    .mock-zoom { position: absolute; top: 40px; right: -50px; width: 160px; height: 160px; background: #fff; border-radius: 50%; border: 4px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; z-index: 2; }
+    .mock-zoom { position: absolute; top: 40px; right: -60px; width: 160px; height: 160px; background: #fff; border-radius: 50%; border: 4px solid #eee; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; z-index: 2; }
     .mock-zoom-top { background: #f5f5f5; width: 100%; height: 50%; position: absolute; top: 0; border-radius: 160px 160px 0 0; z-index: -1; }
-    .mock-zoom-text { font-size: 0.65rem; color: #555; font-weight: bold; border-bottom: 2px solid #cc0000; padding-bottom: 2px; z-index: 1; }
+    .mock-zoom-text { font-size: 0.65rem; color: #555; font-weight: bold; border-bottom: 2px solid #cc0000; padding-bottom: 2px; z-index: 1; text-align: center; }
 
     /* ── SPINNER / RESULT ── */
     .spinner { display: none; padding: 20px 0; }
@@ -126,7 +133,7 @@
     .footer-bottom-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .app-buttons { display: flex; gap: 10px; }
     .app-btn { border: 1px solid #777; padding: 8px 16px; border-radius: 6px; color: #fff; text-decoration: none; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; }
-
+    
     @media (max-width: 900px) {
       .logo-block { position: relative; top: 0; height: auto; padding: 15px; width: 140px; margin: 0 auto; border-radius: 4px; box-shadow: none; }
       .top-nav-inner .nav-tabs { margin-left: 0; width: 100%; justify-content: center; }
@@ -135,7 +142,7 @@
       .logo-bar nav { margin-left: 0; flex-direction: column; gap: 10px; width: 100%; text-align: center; }
       .btn-cuenta { margin-left: 0; width: 100%; }
       .top-nav { display: none; }
-      .form-box { flex-direction: column; padding: 20px; }
+      .form-box { flex-direction: column; padding: 20px; gap: 40px; }
       .form-right { width: 100%; height: 200px; overflow: hidden; }
       .mock-zoom { right: 10px; top: 20px; width: 120px; height: 120px; }
       .footer-dark-inner { flex-direction: column; text-align: center; }
@@ -145,31 +152,34 @@
 </head>
 <body>
 
-<div class="top-nav">
-  <div class="top-nav-inner">
-    <div class="nav-tabs">
-      <a class="nav-tab active" href="#">Afiliados</a>
-      <a class="nav-tab" href="#">Pensionados</a>
-      <a class="nav-tab" href="#">Empleador</a>
-    </div>
-    <div class="nav-right">
-      <span>♿ Accesibilidad ▾</span>
-      <span>🔍 Buscar</span>
+<div class="header-wrapper">
+  <div class="hanging-logo-pv">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/Logotipo_AFP_ProVida.svg" alt="AFP PlanVital"/>
+  </div>
+
+  <div class="top-nav">
+    <div class="top-nav-inner">
+      <div class="nav-tabs">
+        <a class="nav-tab active" href="#">Afiliados</a>
+        <a class="nav-tab" href="#">Pensionados</a>
+        <a class="nav-tab" href="#">Empleador</a>
+      </div>
+      <div class="nav-right">
+        <span>♿ Accesibilidad ▾</span>
+        <span>🔍 Buscar</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="logo-bar">
-  <div class="logo-bar-inner">
-    <div class="logo-block">
-      <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20PLAN%20VITAL.png" alt="AFP PlanVital"/>
+  <div class="main-nav">
+    <div class="main-nav-inner">
+      <nav class="main-nav-links">
+        <a href="#">Cámbiate a AFP PlanVital</a>
+        <a href="#">Ahorra con AFP PlanVital</a>
+        <a href="#">Asesoría y herramientas</a>
+        <a class="btn-cuenta" href="#">Ingresa a tu cuenta</a>
+      </nav>
     </div>
-    <nav>
-      <a href="#">Cámbiate a AFP PlanVital</a>
-      <a href="#">Ahorra con AFP PlanVital</a>
-      <a href="#">Asesoría y herramientas</a>
-      <a class="btn-cuenta" href="#">Ingresa a tu cuenta</a>
-    </nav>
   </div>
 </div>
 
@@ -208,7 +218,7 @@
       </div>
 
       <div class="field-group">
-        <label>Folio Certificado <span style="color:#cc0000;font-size:0.7rem;">🔴</span></label>
+        <label>Folio Certificado <span style="color:#cc0000; font-size:0.7rem;">🔴</span></label>
         <input type="text" id="folio" placeholder="11112222333344445" oninput="checkReady()"/>
       </div>
 
@@ -301,8 +311,8 @@
 <div class="footer-bottom">
   <div class="footer-bottom-inner">
     <div class="app-buttons">
-      <a href="#" class="app-btn">Descargar Google Play</a>
-      <a href="#" class="app-btn">Descargar App Store</a>
+      <a href="#" class="app-btn">Descargar en Google Play</a>
+      <a href="#" class="app-btn">Descargar en App Store</a>
     </div>
     <div style="color:#aaa; font-size:0.8rem; text-align:right;">
       Porque queremos ser tus Socios de por Vida, nuestro plan es entregarte la mejor experiencia.
@@ -350,18 +360,18 @@
       
       if (data.found === true && data.pdf) {
         hdr.className = 'result-header';
-        hdr.style.cssText = 'background: #fafafa; color: #333; border-top: 3px solid #cc0000;'; 
+        hdr.style.cssText = 'background: #fafafa; color: #333; border-top: 3px solid #cc0000; border-bottom: none;'; 
         hdr.innerHTML = `✅ <strong>Validación Exitosa</strong>`;
         const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
         bdy.innerHTML = `<div style="margin-top:12px;border:1px solid #ddd;border-radius:4px;overflow:hidden;"><iframe src="${pdfData}" style="width:100%;height:500px;border:none;" title="Certificado PDF"></iframe></div>`;
       } else if (data.found === false) {
         hdr.className = 'result-header error';
-        hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000;'; 
+        hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000; border-bottom: none;'; 
         hdr.innerHTML = `❌ <strong>Error en la validación</strong>`;
         bdy.innerHTML = '<p style="color:#555;">El documento no figura en la base de datos de PlanVital.</p>';
       } else {
         hdr.className = 'result-header error';
-        hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000;'; 
+        hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000; border-bottom: none;'; 
         hdr.innerHTML = `⚠️ <strong>Error del servidor</strong>`;
         bdy.innerHTML = '<p style="color:#555;">Intente nuevamente en unos minutos.</p>';
       }
@@ -370,7 +380,7 @@
       clearTimeout(timeout); document.getElementById('spinner').classList.remove('active');
       const box = document.getElementById('result-box'), hdr = document.getElementById('result-header');
       hdr.className = 'result-header error';
-      hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000;'; 
+      hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000; border-bottom: none;'; 
       hdr.innerHTML = '⚠️ Fallo de conexión';
       document.getElementById('result-body').innerHTML = '<p>Verifique su internet.</p>';
       box.classList.add('visible');
