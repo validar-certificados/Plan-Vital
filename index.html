@@ -13,22 +13,38 @@
     body { font-family: 'Roboto', sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
     /* ── TOP NAV ── */
-    .top-nav { background: #f4f4f4; border-bottom: 1px solid #e0e0e0; padding: 0 40px; display: flex; align-items: center; justify-content: center; }
-    .top-nav-inner { width: 100%; max-width: 1100px; display: flex; justify-content: center; }
-    .top-nav .nav-tab { padding: 12px 30px; font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; border-top: 3px solid transparent; background: transparent; }
+    .top-nav { background: #f4f4f4; border-bottom: 1px solid #e0e0e0; padding: 0 40px; display: flex; align-items: center; justify-content: center; height: 46px; }
+    .top-nav-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; height: 100%; }
+    .top-nav-inner .nav-tabs { display: flex; height: 100%; margin-left: 200px; /* Empuja los tabs a la derecha del logo */ }
+    .top-nav .nav-tab { padding: 0 30px; font-size: 0.85rem; font-weight: 500; color: #555; text-decoration: none; border-top: 3px solid transparent; background: transparent; display: flex; align-items: center; }
     .top-nav .nav-tab.active { background: #fff; border-top-color: #e5e5e5; font-weight: 600; color: #333; }
     .top-nav .nav-right { margin-left: auto; display: flex; align-items: center; gap: 20px; font-size: 0.85rem; color: #555; }
 
     /* ── LOGO BAR ── */
-    .logo-bar { background: #fff; padding: 0 40px; display: flex; align-items: center; justify-content: center; height: 70px; position: relative; z-index: 10; }
-    .logo-bar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+    .logo-bar { background: #fff; padding: 0 40px; display: flex; align-items: center; justify-content: center; height: 76px; position: relative; z-index: 10; }
+    .logo-bar-inner { width: 100%; max-width: 1100px; display: flex; align-items: center; position: relative; height: 100%; }
     
-    .logo-block { background: #cc0000; position: absolute; top: -41px; left: 0; padding: 25px 20px; border-radius: 0 0 6px 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); height: 110px; display: flex; align-items: center; }
-    .logo-block img { height: 50px; object-fit: contain; }
+    /* ── CAJA ROJA DEL LOGO (MÁS GRANDE) ── */
+    .logo-block { 
+      background: #cc0000; 
+      position: absolute; 
+      top: -46px; /* Sube para cubrir el Top Nav */
+      left: 0; 
+      padding: 30px 15px; 
+      border-radius: 0 0 6px 6px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+      height: 160px; /* Más larga hacia abajo */
+      width: 150px; /* Más ancha */
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      z-index: 20;
+    }
+    .logo-block img { width: 100%; height: auto; object-fit: contain; }
     
     .logo-bar nav { display: flex; gap: 30px; margin-left: auto; align-items: center; }
     .logo-bar nav a { font-size: 0.95rem; color: #cc0000; text-decoration: none; font-weight: 700; }
-    .btn-cuenta { background: #cc0000; color: #fff !important; padding: 10px 24px; font-size: 0.95rem; font-weight: 600; text-decoration: none; margin-left: 10px; }
+    .btn-cuenta { background: #cc0000; color: #fff !important; padding: 12px 24px; font-size: 0.95rem; font-weight: 600; text-decoration: none; margin-left: 10px; border-radius: 4px; }
     .btn-cuenta:hover { background: #a00000; }
 
     /* ── HERO BANNER (Image Background) ── */
@@ -72,7 +88,7 @@
     .btn-validar.ready { background: #cc0000; cursor: pointer; }
     .btn-validar.ready:hover { background: #a00000; }
 
-    /* ── CSS DRAWN CERTIFICATE (Right side graphic) ── */
+    /* ── CSS DRAWN CERTIFICATE ── */
     .mock-cert { background: #fff; width: 180px; height: 240px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; padding: 20px 15px; }
     .mock-logo { color: #cc0000; font-size: 0.6rem; font-weight: 700; margin-bottom: 10px; }
     .mock-line { height: 4px; background: #eee; margin-bottom: 6px; border-radius: 2px; }
@@ -110,9 +126,10 @@
     .footer-bottom-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .app-buttons { display: flex; gap: 10px; }
     .app-btn { border: 1px solid #777; padding: 8px 16px; border-radius: 6px; color: #fff; text-decoration: none; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; }
-    
+
     @media (max-width: 900px) {
-      .logo-block { position: static; height: auto; padding: 10px; width: 120px; margin: 0 auto; border-radius: 4px; box-shadow: none; }
+      .logo-block { position: relative; top: 0; height: auto; padding: 15px; width: 140px; margin: 0 auto; border-radius: 4px; box-shadow: none; }
+      .top-nav-inner .nav-tabs { margin-left: 0; width: 100%; justify-content: center; }
       .logo-bar { height: auto; padding: 15px; }
       .logo-bar-inner { flex-direction: column; gap: 15px; }
       .logo-bar nav { margin-left: 0; flex-direction: column; gap: 10px; width: 100%; text-align: center; }
@@ -121,6 +138,8 @@
       .form-box { flex-direction: column; padding: 20px; }
       .form-right { width: 100%; height: 200px; overflow: hidden; }
       .mock-zoom { right: 10px; top: 20px; width: 120px; height: 120px; }
+      .footer-dark-inner { flex-direction: column; text-align: center; }
+      .footer-bottom-inner { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -128,9 +147,11 @@
 
 <div class="top-nav">
   <div class="top-nav-inner">
-    <a class="nav-tab active" href="#">Afiliados</a>
-    <a class="nav-tab" href="#">Pensionados</a>
-    <a class="nav-tab" href="#">Empleador</a>
+    <div class="nav-tabs">
+      <a class="nav-tab active" href="#">Afiliados</a>
+      <a class="nav-tab" href="#">Pensionados</a>
+      <a class="nav-tab" href="#">Empleador</a>
+    </div>
     <div class="nav-right">
       <span>♿ Accesibilidad ▾</span>
       <span>🔍 Buscar</span>
@@ -187,7 +208,7 @@
       </div>
 
       <div class="field-group">
-        <label>Folio Certificado 🔴</label>
+        <label>Folio Certificado <span style="color:#cc0000;font-size:0.7rem;">🔴</span></label>
         <input type="text" id="folio" placeholder="11112222333344445" oninput="checkReady()"/>
       </div>
 
@@ -231,6 +252,8 @@
     <div class="val-box"><h4>FONDO A</h4><div class="val-num">$84.355,06 ↗</div></div>
     <div class="val-box"><h4>FONDO B</h4><div class="val-num">$74.297,19 ↗</div></div>
     <div class="val-box"><h4>FONDO C</h4><div class="val-num">$141.390,22 ↗</div></div>
+    <div class="val-box"><h4>FONDO D</h4><div class="val-num" style="color:#cc0000;">$53.954,3 ↘</div></div>
+    <div class="val-box"><h4>FONDO E</h4><div class="val-num" style="color:#cc0000;">$107.858,87 ↘</div></div>
   </div>
 </div>
 
@@ -241,24 +264,36 @@
       <a href="#">Directorio y administración</a>
       <a href="#">Sobre nosotros</a>
       <a href="#">Grupo Generali</a>
+      <a href="#">Trabaja con nosotros</a>
     </div>
     <div class="footer-col">
       <h4>Inversionistas</h4>
       <a href="#">Gobierno corporativo</a>
       <a href="#">Estados Financieros</a>
+      <a href="#">Hechos esenciales</a>
+      <a href="#">Juntas de accionistas</a>
       <a href="#">Memoria anual</a>
+      <a href="#">Información de interés</a>
     </div>
     <div class="footer-col">
       <h4>Información útil</h4>
       <a href="#">Preguntas frecuentes</a>
+      <a href="#">Evalúa este sitio en spensiones.cl</a>
+      <a href="#">Blog Tu Guía Vital</a>
+      <a href="#">Decreto de Ley N° 3.500</a>
       <a href="#">Mapa del sitio</a>
+      <a href="#">Proveedores</a>
       <a href="#">Canal de Denuncias</a>
     </div>
     <div class="footer-col">
       <h4>Sitios de Interés</h4>
       <a href="#">Asociación AFP</a>
+      <a href="#">IPS en línea</a>
+      <a href="#">Instituto de Previsión Social (IPS)</a>
       <a href="#">Previred</a>
-      <a href="#">Superintendencia de Pensiones</a>
+      <a href="#">Previsión para todos</a>
+      <a href="#">Servicio de Impuestos Internos (SII)</a>
+      <a href="#">Superintendencia de Pensiones (SP)</a>
     </div>
   </div>
 </div>
@@ -266,8 +301,8 @@
 <div class="footer-bottom">
   <div class="footer-bottom-inner">
     <div class="app-buttons">
-      <a href="#" class="app-btn">Disponible en Google Play</a>
-      <a href="#" class="app-btn">Disponible en App Store</a>
+      <a href="#" class="app-btn">Descargar Google Play</a>
+      <a href="#" class="app-btn">Descargar App Store</a>
     </div>
     <div style="color:#aaa; font-size:0.8rem; text-align:right;">
       Porque queremos ser tus Socios de por Vida, nuestro plan es entregarte la mejor experiencia.
@@ -328,7 +363,7 @@
         hdr.className = 'result-header error';
         hdr.style.cssText = 'background: #fcfcfc; color: #cc0000; border-top: 3px solid #cc0000;'; 
         hdr.innerHTML = `⚠️ <strong>Error del servidor</strong>`;
-        bdy.innerHTML = '<p style="color:#555;">Intente nuevamente.</p>';
+        bdy.innerHTML = '<p style="color:#555;">Intente nuevamente en unos minutos.</p>';
       }
       box.classList.add('visible');
     } catch(err) {
